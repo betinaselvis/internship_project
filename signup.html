@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register - Professional Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body {
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .signup-wrapper {
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .signup-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .signup-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .signup-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
+    }
+
+    .signup-header p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .signup-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      padding: 3rem;
+    }
+
+    .form-section {
+      margin-bottom: 2rem;
+    }
+
+    .form-section:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-section-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--secondary-color);
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .password-requirements {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background-color: var(--light-bg);
+      border-radius: 4px;
+      border-left: 4px solid var(--secondary-color);
+    }
+
+    .password-requirements-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .requirement-item {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .requirement-item i {
+      font-size: 10px;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: #ddd;
+      color: white;
+    }
+
+    .requirement-item.met {
+      color: var(--success-color);
+    }
+
+    .requirement-item.met i {
+      background-color: var(--success-color);
+    }
+
+    .terms-section {
+      margin-bottom: 2rem;
+      padding: 1.25rem;
+      background-color: var(--light-bg);
+      border-radius: 4px;
+    }
+
+    .custom-control {
+      padding-left: 2rem;
+    }
+
+    .custom-control-label {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .custom-control-input:checked ~ .custom-control-label {
+      color: var(--text-primary);
+    }
+
+    .signup-button {
+      width: 100%;
+      padding: 0.875rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .signup-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .login-link p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .login-link a {
+      color: var(--secondary-color);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .login-link a:hover {
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 576px) {
+      .signup-card {
+        padding: 2rem;
+      }
+
+      .signup-header h1 {
+        font-size: 1.75rem;
+      }
+
+      .form-section-title {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-wrapper">
+    <div class="signup-container">
+      <div class="signup-header">
+        <h1>Create Account</h1>
+        <p>Join our professional community and build your career profile</p>
+      </div>
+
+      <div class="signup-card">
+        <form id="signupForm">
+          <!-- Personal Information Section -->
+          <div class="form-section">
+            <div class="form-section-title"><i class="fas fa-user"></i> Personal Information</div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="firstName">First Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="firstName" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="lastName">Last Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="lastName" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Account Credentials Section -->
+          <div class="form-section">
+            <div class="form-section-title"><i class="fas fa-lock"></i> Account Credentials</div>
+            <div class="form-group">
+              <label for="email">Email Address <span class="text-danger">*</span></label>
+              <input type="email" class="form-control" id="email" required>
+              <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password <span class="text-danger">*</span></label>
+              <input type="password" class="form-control" id="password" required>
+            </div>
+
+            <div class="password-requirements">
+              <div class="password-requirements-title">Password Requirements:</div>
+              <div id="checkLength" class="requirement-item">
+                <i class="fas fa-check"></i>
+                <span>At least 8 characters</span>
+              </div>
+              <div id="checkUpperCase" class="requirement-item">
+                <i class="fas fa-check"></i>
+                <span>One uppercase letter (A-Z)</span>
+              </div>
+              <div id="checkLowerCase" class="requirement-item">
+                <i class="fas fa-check"></i>
+                <span>One lowercase letter (a-z)</span>
+              </div>
+              <div id="checkNumber" class="requirement-item">
+                <i class="fas fa-check"></i>
+                <span>One number (0-9)</span>
+              </div>
+              <div id="checkSpecial" class="requirement-item">
+                <i class="fas fa-check"></i>
+                <span>One special character (!@#$%^&*)</span>
+              </div>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
+              <input type="password" class="form-control" id="confirmPassword" required>
+            </div>
+          </div>
+
+          <!-- Terms & Conditions -->
+          <div class="terms-section">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="agreeTerms" required>
+              <label class="custom-control-label" for="agreeTerms">
+                I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a> <span class="text-danger">*</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Result Message -->
+          <div id="signupResult"></div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary signup-button">
+            <i class="fas fa-user-plus"></i> Create Account
+          </button>
+
+          <!-- Login Link -->
+          <div class="login-link">
+            <p>Already have an account? <a href="login.html">Sign in here</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/signup.js"></script>
+</body>
+</html>

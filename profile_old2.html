@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Professional Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 0;
+    }
+
+    .navbar {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 0;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color) !important;
+    }
+
+    .navbar-nav .nav-item {
+      margin-left: 2rem;
+    }
+
+    .logout-btn {
+      background-color: var(--accent-color);
+      color: white !important;
+      font-weight: 500;
+      padding: 0.5rem 1.25rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background-color: #c0392b;
+      text-decoration: none;
+    }
+
+    .main-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: flex-end;
+    }
+
+    .profile-actions .btn {
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+    }
+
+    .profile-header {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 3rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      color: white;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+
+    .profile-info h2 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .profile-info .headline {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+      font-weight: 500;
+    }
+
+    .profile-info .location {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-info .about-section {
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    .section-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--secondary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title i {
+      color: var(--secondary-color);
+      font-size: 1.25rem;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-row.full {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-item {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .detail-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .detail-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-value {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .detail-value a {
+      color: var(--secondary-color);
+      word-break: break-all;
+    }
+
+    .item-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .item-card:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .item-title {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .item-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .item-meta {
+      color: #999;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+
+    .skill-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--secondary-color), #2980b9);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+    }
+
+    .edit-form-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .edit-form-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--secondary-color);
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control, .custom-select {
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .custom-select:focus {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .edit-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .edit-actions .btn {
+      font-weight: 600;
+      padding: 0.75rem 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .profile-header {
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .profile-info h2 {
+        font-size: 1.75rem;
+      }
+
+      .detail-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .section-card {
+        padding: 1.5rem;
+      }
+
+      .profile-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-lg">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-user-circle"></i> Profile
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="ml-auto">
+          <a href="#" id="logoutBtn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <!-- Profile Actions -->
+    <div class="profile-actions">
+      <button type="button" id="editProfileBtn" class="btn btn-primary">
+        <i class="fas fa-edit"></i> Edit Profile
+      </button>
+    </div>
+
+    <!-- Profile View Mode -->
+    <div id="profileViewMode">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="row">
+          <div class="col-md-3 text-center mb-md-0 mb-4">
+            <div class="profile-pic">
+              <i class="fas fa-user"></i>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="profile-info">
+              <h2 id="fullNameView">—</h2>
+              <div class="headline" id="headlineView">—</div>
+              <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="locationView">—</span>
+              </div>
+              <div class="about-section" id="aboutView">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Details Section -->
+      <div class="section-card">
+        <div class="section-title">
+          <i class="fas fa-id-card"></i> Personal Details
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">
+            <div class="detail-label">First Name</div>
+            <div class="detail-value" id="firstNameView">—</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Last Name</div>
+            <div class="detail-value" id="lastNameView">—</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">
+            <div class="detail-label">Email Address</div>
+            <div class="detail-value" id="emailView">—</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Alternate Email</div>
+            <div class="detail-value" id="altEmailView">—</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">
+            <div class="detail-label">Phone</div>
+            <div class="detail-value" id="phoneView">—</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Gender</div>
+            <div class="detail-value" id="genderView">—</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">
+            <div class="detail-label">Date of Birth</div>
+            <div class="detail-value" id="dobView">—</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Age</div>
+            <div class="detail-value" id="ageView">—</div>
+          </div>
+        </div>
+        <div class="detail-row full">
+          <div class="detail-item">
+            <div class="detail-label">Address</div>
+            <div class="detail-value" id="addressView">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div class="section-card" id="educationSection" style="display:none;">
+        <div class="section-title">
+          <i class="fas fa-graduation-cap"></i> Education
+        </div>
+        <div id="educationList"></div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="section-card" id="skillsSection" style="display:none;">
+        <div class="section-title">
+          <i class="fas fa-star"></i> Skills
+        </div>
+        <div id="skillsList"></div>
+      </div>
+
+      <!-- Experience Section -->
+      <div class="section-card" id="experienceSection" style="display:none;">
+        <div class="section-title">
+          <i class="fas fa-briefcase"></i> Experience & Projects
+        </div>
+        <div id="experienceList"></div>
+      </div>
+
+      <!-- Certifications Section -->
+      <div class="section-card" id="certificationsSection" style="display:none;">
+        <div class="section-title">
+          <i class="fas fa-certificate"></i> Certifications
+        </div>
+        <div id="certificationsList"></div>
+      </div>
+
+      <!-- Contact & Social Links -->
+      <div class="section-card">
+        <div class="section-title">
+          <i class="fas fa-link"></i> Contact & Social Links
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">
+            <div class="detail-label">Website / Portfolio</div>
+            <div class="detail-value">
+              <a id="websiteView" href="#" target="_blank">—</a>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">GitHub</div>
+            <div class="detail-value">
+              <a id="githubView" href="#" target="_blank">—</a>
+            </div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">
+            <div class="detail-label">LinkedIn</div>
+            <div class="detail-value">
+              <a id="linkedinView" href="#" target="_blank">—</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Edit Mode -->
+    <div id="profileEditMode" style="display:none;">
+      <form id="profileForm">
+        <div class="section-card">
+          <!-- Personal Information -->
+          <div class="edit-form-section">
+            <div class="edit-form-section-title">Personal Information</div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>First Name</label>
+                <input type="text" class="form-control" id="editFirstName">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Last Name</label>
+                <input type="text" class="form-control" id="editLastName">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Headline (e.g., "Full Stack Developer at TechCorp")</label>
+              <input type="text" class="form-control" id="editHeadline">
+            </div>
+            <div class="form-group">
+              <label>About / Professional Summary</label>
+              <textarea class="form-control" id="editAbout" rows="4"></textarea>
+            </div>
+          </div>
+
+          <!-- Location & Contact -->
+          <div class="edit-form-section">
+            <div class="edit-form-section-title">Location & Contact</div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Location (City, Country)</label>
+                <input type="text" class="form-control" id="editLocation">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Phone</label>
+                <input type="tel" class="form-control" id="editPhone">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <textarea class="form-control" id="editAddress" rows="2"></textarea>
+            </div>
+          </div>
+
+          <!-- Personal Details -->
+          <div class="edit-form-section">
+            <div class="edit-form-section-title">Personal Details</div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Gender</label>
+                <select class="form-control custom-select" id="editGender">
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Date of Birth</label>
+                <input type="date" class="form-control" id="editDob">
+              </div>
+            </div>
+          </div>
+
+          <!-- Email Details -->
+          <div class="edit-form-section">
+            <div class="edit-form-section-title">Email Addresses</div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Primary Email (Read-only)</label>
+                <input type="email" class="form-control" id="editEmail" readonly>
+                <small class="form-text text-muted">Your primary email cannot be changed here.</small>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Alternate Email</label>
+                <input type="email" class="form-control" id="editAltEmail">
+              </div>
+            </div>
+          </div>
+
+          <!-- Social & Online Links -->
+          <div class="edit-form-section">
+            <div class="edit-form-section-title">Social & Online Profiles</div>
+            <div class="form-group">
+              <label>Website / Portfolio</label>
+              <input type="url" class="form-control" id="editWebsite">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>GitHub URL</label>
+                <input type="url" class="form-control" id="editGithub">
+              </div>
+              <div class="form-group col-md-6">
+                <label>LinkedIn URL</label>
+                <input type="url" class="form-control" id="editLinkedin">
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="edit-actions">
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+            <button type="button" id="cancelEditBtn" class="btn btn-secondary">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/profile.js"></script>
+</body>
+</html>
