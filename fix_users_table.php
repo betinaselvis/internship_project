@@ -22,6 +22,11 @@ try {
     
     echo "<p>✅ Connected to database</p>";
     
+    // Disable foreign key checks
+    echo "<p>Disabling foreign key constraints...</p>";
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 0");
+    echo "<p>✅ Foreign key checks disabled</p>";
+    
     // Drop existing users table
     echo "<p>Dropping old users table...</p>";
     $pdo->exec("DROP TABLE IF EXISTS users");
@@ -54,6 +59,11 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
     ");
     echo "<p>✅ New users table created with all columns</p>";
+    
+    // Re-enable foreign key checks
+    echo "<p>Re-enabling foreign key constraints...</p>";
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
+    echo "<p>✅ Foreign key checks re-enabled</p>";
     
     // Verify columns
     echo "<p>Verifying columns...</p>";
