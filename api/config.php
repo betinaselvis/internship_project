@@ -1,15 +1,32 @@
 <?php
-// =========================
-// MySQL Configuration
-// =========================
-define('DB_HOST', '127.0.0.1');        // MySQL host
-define('DB_NAME', 'guvi_intern');      // Database name
-define('DB_USER', 'root');             // MySQL user
-define('DB_PASS', '');                 // Empty password
 
-// =========================
-// Redis Configuration (Optional)
-// =========================
-define('REDIS_HOST', '127.0.0.1');
-define('REDIS_PORT', 6379);
-define('SESSION_TTL', 86400); // 1 day
+// MySQL (from Railway environment variables)
+$MYSQL_HOST = getenv('MYSQL_HOST');
+$MYSQL_PORT = getenv('MYSQL_PORT');
+$MYSQL_DB   = getenv('MYSQL_DATABASE');
+$MYSQL_USER = getenv('MYSQL_USER');
+$MYSQL_PASS = getenv('MYSQL_PASSWORD');
+
+$pdo = new PDO(
+    "mysql:host=$MYSQL_HOST;port=$MYSQL_PORT;dbname=$MYSQL_DB;charset=utf8mb4",
+    $MYSQL_USER,
+    $MYSQL_PASS,
+    [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]
+);
+
+// Redis (from Railway environment variables)
+$redis = new Redis();
+$redis->connect(
+    getenv('REDIS_HOST'),
+    getenv('REDIS_PORT')
+);
+
+if (getenv('REDIS_PASSWORD')) {
+    $redis->auth(getenv('REDIS_PASSWORD'));
+}
+
+// Session TTL
+$SESSION_TTL = 3600;
