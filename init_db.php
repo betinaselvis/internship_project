@@ -26,7 +26,7 @@ try {
     $host = DB_HOST;
     $port = DB_PORT;
     $user = DB_USER;
-    $pass = DB_PASSWORD;
+    $pass = DB_PASS;
     
     echo "<div class='step'>";
     echo "<p>Connecting to MySQL server at <strong>$host:$port</strong>...</p>";
