@@ -25,4 +25,4 @@ $stmt = $pdo->prepare(
 );
 $stmt->execute([$token, $user['id']]);
 
-jsonResponse(['success'=>true,'token'=>$token]);
+jsonResponse(['success'=>true,'token'=>$token,'user_id'=>$user['id']]);

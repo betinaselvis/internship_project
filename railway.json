@@ -1,0 +1,11 @@
+{
+  "build": {
+    "builder": "heroku/buildpacks:20"
+  },
+  "env": {
+    "MYSQL_DATABASE": {
+      "description": "MySQL database name",
+      "value": "guvi_intern"
+    }
+  }
+}

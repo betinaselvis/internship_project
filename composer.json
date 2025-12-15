@@ -1,0 +1,11 @@
+{
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {},
+    "scripts": {
+        "compile": [
+            "@php apply_schema.php"
+        ]
+    }
+}
