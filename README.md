@@ -13,8 +13,6 @@ This project implements a simple user authentication system with profile managem
 ## Project Flow
 Register → Login → Profile (View / Update)
 
----
-
 ## Prerequisites
 - XAMPP (Apache + MySQL)
 - Ubuntu WSL
@@ -24,8 +22,6 @@ Register → Login → Profile (View / Update)
   - redis (phpredis)
 
 > MongoDB is **not used** in this project.
-
----
 
 ## How to Run the Project Locally
 
@@ -37,8 +33,6 @@ C:\xampp\htdocs\
 yaml
 Copy code
 3. Start **Apache** and **MySQL** from XAMPP Control Panel
-
----
 
 ### 2. Start Redis (WSL)
 Open Ubuntu (WSL) and run:
