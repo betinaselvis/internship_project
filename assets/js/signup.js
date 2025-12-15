@@ -75,7 +75,7 @@ $(function () {
 
     // ✅ CORRECT RAILWAY API PATH (ABSOLUTE)
     $.ajax({
-      url: '/api/signup.php',
+      url: '/api/register.php',
       method: 'POST',
       dataType: 'json',
       data: {
