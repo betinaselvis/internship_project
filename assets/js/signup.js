@@ -44,6 +44,14 @@ $(function () {
     var confirmPassword = $('#confirmPassword').val();
     var agreeTerms = $('#agreeTerms').is(':checked');
 
+    // Check if basic fields are filled
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      $('#signupResult').html(
+        '<div class="alert alert-danger">All fields are required</div>'
+      );
+      return;
+    }
+
     const passwordChecks = validatePassword(password);
 
     if (
@@ -79,7 +87,8 @@ $(function () {
       method: 'POST',
       dataType: 'json',
       data: {
-        username: firstName + ' ' + lastName,
+        first_name: firstName,
+        last_name: lastName,
         email: email,
         password: password
       }
