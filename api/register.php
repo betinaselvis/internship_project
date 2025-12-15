@@ -50,7 +50,12 @@ try {
         // MySQL duplicate entry error code is 1062
         if ($err == 1062) {
             $msg = 'Email already exists';
+        } else {
+            // Log the actual error for debugging
+            $msg = 'Database error: ' . $e->getMessage();
         }
+    } else {
+        $msg = 'Error: ' . $e->getMessage();
     }
     jsonResponse(['success'=>false,'message'=>$msg]);
 }
