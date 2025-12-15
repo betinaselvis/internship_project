@@ -1,6 +1,6 @@
 <?php
-require 'config.php';
-require 'helpers.php';
+require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/helpers.php';
 
 header('Content-Type: application/json');
 
@@ -10,8 +10,8 @@ try {
   $data = json_decode(file_get_contents('php://input'), true) ?? $_POST;
   
   // Verify token
-  $user = verifyToken($data['token'] ?? '');
-  if (!$user) {
+  $user_id = verifyToken($data['token'] ?? '');
+  if (!$user_id) {
     $response['message'] = 'Unauthorized';
     echo json_encode($response);
     exit;
@@ -34,12 +34,13 @@ try {
     exit;
   }
 
+  $pdo = getPDO();
   $stmt = $pdo->prepare('
     INSERT INTO skills (user_id, skill_name, skill_level, created_at)
     VALUES (?, ?, ?, NOW())
   ');
 
-  if ($stmt->execute([$user['id'], $skillName, $skillLevel])) {
+  if ($stmt->execute([$user_id, $skillName, $skillLevel])) {
     $response['success'] = true;
     $response['message'] = 'Skill added successfully';
     $response['id'] = $pdo->lastInsertId();
