@@ -1,6 +1,9 @@
 <?php
+// Must require files BEFORE any output
+require_once __DIR__ . '/api/config.php';
+require_once __DIR__ . '/api/helpers.php';
+
 session_start();
-header('Content-Type: text/html; charset=utf-8');
 
 echo "<!DOCTYPE html><html><head><title>Check Users Table</title><style>
 body { font-family: Arial; margin: 20px; }
@@ -14,7 +17,6 @@ th { background-color: #4CAF50; color: white; }
 echo "<h1>Users Table Structure Check</h1>";
 
 try {
-    require_once __DIR__ . '/api/config.php';
     $pdo = getPDO();
     echo "<p class='success'>✅ Connected to database</p>";
     
