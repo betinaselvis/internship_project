@@ -1,44 +1,54 @@
-# Internship Project — Signup / Login / Profile
+# Internship Project — Signup / Login / Profile System
 
-This project demonstrates a simple registration and login system using:
-- Frontend: HTML, Bootstrap, CSS, jQuery AJAX
-- Backend: PHP (MySQL with prepared statements, MongoDB, Redis)
-- Local session on client-side: `localStorage`
+This project implements a simple user authentication system with profile management.
 
-Flow: Register → Login → Profile (update)
+## Tech Stack
+- Frontend: HTML, CSS, Bootstrap, JavaScript (jQuery AJAX)
+- Backend: PHP
+- Database: MySQL (using prepared statements)
+- Session Store: Redis
+- Server: Apache (XAMPP)
+- Client-side session: Browser localStorage
 
-Prereqs:
-- XAMPP (PHP + MySQL)
-- Redis server running (localhost)
-- MongoDB Atlas connection string
-- PHP extensions: `pdo_mysql`, `mongodb`, `redis` (phpredis) or use `predis` library
-- Composer if you need to install the MongoDB PHP library (`composer require mongodb/mongodb`) or Predis (`composer require predis/predis`) and `ext-mongodb` PECL extension
+## Project Flow
+Register → Login → Profile (View / Update)
 
-If you need to install dependencies via Composer:
+---
 
+## Prerequisites
+- XAMPP (Apache + MySQL)
+- Ubuntu WSL
+- Redis installed and running inside WSL
+- PHP extensions:
+  - pdo_mysql
+  - redis (phpredis)
+
+> MongoDB is **not used** in this project.
+
+---
+
+## How to Run the Project Locally
+
+### 1. Project Setup
+1. Clone this repository
+2. Copy the project folder to:
+C:\xampp\htdocs\
+
+yaml
+Copy code
+3. Start **Apache** and **MySQL** from XAMPP Control Panel
+
+---
+
+### 2. Start Redis (WSL)
+Open Ubuntu (WSL) and run:
 ```bash
-cd /path/to/internship_project
-composer require mongodb/mongodb
-composer require predis/predis
-```
+redis-server
+3. Database Setup
+Create the database and table in MySQL:
 
-And enable php extensions (php.ini):
-- extension=redis
-- extension=mongodb
-
-Then restart Apache from XAMPP Control Panel.
-
-Configuration:
-- Edit `api/config.php` and update `MYSQL_*`, `MONGODB_URI`, `REDIS_*` values according to your environment.
-- Make sure your MySQL database is created and you ran the SQL in `db/schema.sql`.
-- If you’re using Atlas, replace the placeholder with your connection string.
-
-Setup
-1. Copy the `internship_project` folder to your XAMPP `htdocs` directory.
-2. Configure `api/config.php` with MySQL and MongoDB settings.
-3. Create MySQL database and run the SQL below to create the `users` table:
-
-```sql
+sql
+Copy code
 CREATE DATABASE IF NOT EXISTS internship_project;
 USE internship_project;
 
@@ -49,40 +59,35 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-```
+4. Configuration
+Edit api/config.php and update:
 
-4. Start XAMPP and Redis.
-5. Visit `http://localhost/internship_project/signup.html` to register.
+MySQL credentials
 
-Quick API examples (curl)
+Redis host and port
 
-Register:
+5. Access the Application
+Open browser and visit:
 
-```bash
-curl -X POST -d "username=testuser&email=test@example.com&password=secret" http://localhost/internship_project/api/register.php
-```
+arduino
+Copy code
+http://localhost/internship_project/signup.html
+Session Handling
+On successful login, a token is generated
 
-Login (returns token):
+Token is stored:
 
-```bash
-curl -X POST -d "email=test@example.com&password=secret" http://localhost/internship_project/api/login.php
-```
+In Redis (server-side) with TTL
 
-Get Profile (POST token):
+In browser localStorage (client-side)
 
-```bash
-curl -X POST -d "token=<TOKEN>" http://localhost/internship_project/api/profile.php
-```
-
-Update Profile (POST token):
-
-```bash
-curl -X POST -d "token=<TOKEN>&full_name=Your%20Name&age=30&dob=1995-01-01&contact=1234567890&address=Some%20Address" http://localhost/internship_project/api/profile_update.php
-```
+No PHP sessions are used (as per requirement)
 
 Notes
-- All PHP endpoints return JSON.
-- The login session token is stored in Redis as `session:<token> => user_id` with TTL (set in `api/config.php`).
-- Client stores `auth_token` and `user_id` in `localStorage` to maintain session.
+All backend communication is handled via jQuery AJAX
 
-If Redis PHP extension is not available, you can install `predis/predis` with Composer and adjust config.php accordingly.
+No HTML form submission is used
+
+All database queries use prepared statements
+
+Redis is used only for session management
