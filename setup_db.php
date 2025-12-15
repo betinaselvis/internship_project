@@ -56,7 +56,7 @@ try {
     // Now connect to the specific database
     $pdo->exec("USE guvi_intern");
     
-    // Create users table
+    // Create users table (COMPLETE)
     echo "<p>Creating 'users' table...</p>";
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS users (
