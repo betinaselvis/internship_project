@@ -7,19 +7,34 @@
 
 // Get connection details from environment
 $mysqlUrl = getenv('MYSQL_URL');
+$host = getenv('MYSQL_HOST');
+$port = getenv('MYSQL_PORT');
+$user = getenv('MYSQL_USER');
+$pass = getenv('MYSQL_PASSWORD');
 
-if (!$mysqlUrl) {
-    die("❌ MYSQL_URL not set. Cannot proceed.");
+// If MYSQL_URL is set, parse it
+if ($mysqlUrl) {
+    $parsed = parse_url($mysqlUrl);
+    $host = $parsed['host'] ?? 'localhost';
+    $port = $parsed['port'] ?? 3306;
+    $user = $parsed['user'] ?? 'root';
+    $pass = $parsed['pass'] ?? '';
 }
 
-// Parse the URL
-$parsed = parse_url($mysqlUrl);
-$host = $parsed['host'] ?? 'localhost';
-$port = $parsed['port'] ?? 3306;
-$user = $parsed['user'] ?? 'root';
-$pass = $parsed['pass'] ?? '';
+// Set defaults if not available
+$host = $host ?: 'localhost';
+$port = $port ?: 3306;
+$user = $user ?: 'root';
+$pass = $pass ?: '';
 
 echo "<h2>Database Setup</h2>";
+echo "<p>Connection details:</p>";
+echo "<pre>";
+echo "Host: " . htmlspecialchars($host) . "\n";
+echo "Port: " . htmlspecialchars($port) . "\n";
+echo "User: " . htmlspecialchars($user) . "\n";
+echo "</pre>";
+
 echo "<p>Connecting to MySQL...</p>";
 
 try {
@@ -159,5 +174,13 @@ try {
 } catch (Exception $e) {
     echo "<p style='color: red;'><strong>❌ Error:</strong></p>";
     echo "<pre>" . htmlspecialchars($e->getMessage()) . "</pre>";
+    echo "<p><strong>Debugging Info:</strong></p>";
+    echo "<pre>";
+    echo "MYSQL_HOST: " . htmlspecialchars(getenv('MYSQL_HOST') ?: 'NOT SET') . "\n";
+    echo "MYSQL_PORT: " . htmlspecialchars(getenv('MYSQL_PORT') ?: 'NOT SET') . "\n";
+    echo "MYSQL_USER: " . htmlspecialchars(getenv('MYSQL_USER') ?: 'NOT SET') . "\n";
+    echo "MYSQL_PASSWORD: " . (getenv('MYSQL_PASSWORD') ? '***SET***' : 'NOT SET') . "\n";
+    echo "MYSQL_URL: " . htmlspecialchars(getenv('MYSQL_URL') ?: 'NOT SET') . "\n";
+    echo "</pre>";
 }
 ?>
