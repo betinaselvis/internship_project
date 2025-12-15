@@ -1,21 +1,21 @@
-$(function(){
+$(function () {
+
   // Password validation function
   function validatePassword(password) {
-    const checks = {
+    return {
       length: password.length >= 8,
       uppercase: /[A-Z]/.test(password),
       lowercase: /[a-z]/.test(password),
       number: /[0-9]/.test(password),
       special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
     };
-    return checks;
   }
 
   // Real-time password validation feedback
-  $('#password').on('input', function(){
+  $('#password').on('input', function () {
     const password = $(this).val();
     const checks = validatePassword(password);
-    
+
     updateCheckUI('checkLength', checks.length);
     updateCheckUI('checkUpperCase', checks.uppercase);
     updateCheckUI('checkLowerCase', checks.lowercase);
@@ -25,7 +25,7 @@ $(function(){
 
   function updateCheckUI(elementId, isValid) {
     const $element = $('#' + elementId);
-    if(isValid) {
+    if (isValid) {
       $element.removeClass('text-muted').addClass('text-success');
       $element.find('i').css('color', '#28a745');
     } else {
@@ -34,9 +34,9 @@ $(function(){
     }
   }
 
-  $('#signupForm').on('submit', function(e){
+  $('#signupForm').on('submit', function (e) {
     e.preventDefault();
-    
+
     var firstName = $('#firstName').val().trim();
     var lastName = $('#lastName').val().trim();
     var email = $('#email').val().trim();
@@ -44,42 +44,67 @@ $(function(){
     var confirmPassword = $('#confirmPassword').val();
     var agreeTerms = $('#agreeTerms').is(':checked');
 
-    // Validate password strength
     const passwordChecks = validatePassword(password);
-    if(!passwordChecks.length || !passwordChecks.uppercase || !passwordChecks.lowercase || !passwordChecks.number || !passwordChecks.special) {
-      $('#signupResult').html('<div class="alert alert-danger">Password does not meet all requirements. Please check the requirements above.</div>');
+
+    if (
+      !passwordChecks.length ||
+      !passwordChecks.uppercase ||
+      !passwordChecks.lowercase ||
+      !passwordChecks.number ||
+      !passwordChecks.special
+    ) {
+      $('#signupResult').html(
+        '<div class="alert alert-danger">Password does not meet all requirements.</div>'
+      );
       return;
     }
 
-    if(password !== confirmPassword){
-      $('#signupResult').html('<div class="alert alert-danger">Passwords do not match</div>');
+    if (password !== confirmPassword) {
+      $('#signupResult').html(
+        '<div class="alert alert-danger">Passwords do not match</div>'
+      );
       return;
     }
 
-    if(!agreeTerms){
-      $('#signupResult').html('<div class="alert alert-danger">You must agree to the Terms and Conditions</div>');
+    if (!agreeTerms) {
+      $('#signupResult').html(
+        '<div class="alert alert-danger">You must agree to the Terms and Conditions</div>'
+      );
       return;
     }
 
+    // ✅ CORRECT RAILWAY API PATH (ABSOLUTE)
     $.ajax({
-      url: 'api/register.php',
+      url: '/api/signup.php',
       method: 'POST',
+      dataType: 'json',
       data: {
-        first_name: firstName,
-        last_name: lastName,
+        username: firstName + ' ' + lastName,
         email: email,
         password: password
-      },
-      dataType: 'json'
-    }).done(function(resp){
-      if(resp.success){
-        $('#signupResult').html('<div class="alert alert-success">Registered successfully. Redirecting to login...</div>');
-        setTimeout(function(){ window.location.href = 'login.html'; }, 1200);
-      } else {
-        $('#signupResult').html('<div class="alert alert-danger">'+(resp.message||'Error')+'</div>');
       }
-    }).fail(function(){
-      $('#signupResult').html('<div class="alert alert-danger">Network error</div>');
+    })
+    .done(function (resp) {
+      if (resp.success) {
+        $('#signupResult').html(
+          '<div class="alert alert-success">Registered successfully. Redirecting to login...</div>'
+        );
+        setTimeout(function () {
+          window.location.href = 'login.html';
+        }, 1200);
+      } else {
+        $('#signupResult').html(
+          '<div class="alert alert-danger">' + (resp.message || 'Registration failed') + '</div>'
+        );
+      }
+    })
+    .fail(function (xhr) {
+      console.error(xhr.responseText);
+      $('#signupResult').html(
+        '<div class="alert alert-danger">Network error</div>'
+      );
     });
+
   });
+
 });
