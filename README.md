@@ -27,11 +27,7 @@ Register → Login → Profile (View / Update)
 
 ### 1. Project Setup
 1. Clone this repository
-2. Copy the project folder to:
-C:\xampp\htdocs\
-
-yaml
-Copy code
+2. Copy the project folder to:C:\xampp\htdocs\
 3. Start **Apache** and **MySQL** from XAMPP Control Panel
 
 ### 2. Start Redis (WSL)
